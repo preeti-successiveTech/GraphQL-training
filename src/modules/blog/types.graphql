@@ -17,13 +17,19 @@ type Post {
 # Comment type
 type Comment {
   id: ID!
-   text: String!
+  text: String!
   post: Post!
   user: User!
 }
 
 enum sortOrder {
-  title
-  id
-  date
+  ASC
+  DESC
 }
+
+type customError {
+  message: String!
+  status: String!
+}
+
+union UserResult = User | customError
