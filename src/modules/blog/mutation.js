@@ -1,4 +1,4 @@
-import {posts} from './dataSource.js'
+import { posts } from "./dataSource.js";
 export const blogMutation = {
   createPost: (_, { title, content, authorId }) => {
     const newPost = {
@@ -10,4 +10,4 @@ export const blogMutation = {
     posts.push(newPost);
     return newPost;
   },
-  };
+};
