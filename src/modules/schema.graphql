@@ -1,7 +1,7 @@
 type Query {
   messages: [Message!]!
   getUsers: [User!]!
-  getUserById(id: ID!): User
+  getUserById(id: ID!): UserResult!
   getPosts(page: Int!, limit: Int!, sortOrder: sortOrder): [Post!]!
   getPostById(id: ID!): Post
   getPostsByUserId(userId: ID!): [Post!]!

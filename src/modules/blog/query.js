@@ -1,12 +1,23 @@
 import { posts, users } from "./dataSource.js";
 
 export const blogQueryResolvers = {
-  getUsers: () => users,
+  getUsers: () => {
+    console.log("111111111111");
+    return users;
+  },
 
   getUserById: async (_, { id }) => {
-    await new Promise(resolve => setTimeout(resolve, 2000)); 
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log("calling query by id");
     const user = users.find((user) => user.id === id);
-    if (!user) throw new Error("User not found");
+
+    if (!user) {
+      return {
+        message: "User not found",
+        code: "404",
+      };
+    }
+
     return user;
   },
 

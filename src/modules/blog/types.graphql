@@ -29,7 +29,7 @@ enum sortOrder {
 
 type customError {
   message: String!
-  status: String!
+  code: String!
 }
 
 union UserResult = User | customError
