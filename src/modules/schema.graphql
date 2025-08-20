@@ -1,5 +1,6 @@
 type Query {
   messages: [Message!]!
+  //blog
   getUsers: [User!]!
   getUserById(id: ID!): UserResult!
   getPosts(page: Int!, limit: Int!, sortOrder: sortOrder): [Post!]!
@@ -9,14 +10,28 @@ type Query {
   getCommentsByPostId(postId: ID!): [Comment!]!
   getUserByComment(comment: CommentInput!): User
   getAuthorOfPost(post: PostInput!): User
+  //Chat Application
+  users: [User!]!
+  messages(limit: Int): [Message!]!
 }
 
 type Mutation {
   postMessage(content: String!, author: String!, title: String!): Message!
+  //Blog
   createPost(title: String!, content: String!, authorId: ID!): Post!
   updateUser(id: ID!, name: String!): User
   addComment(text: String!, postId: ID!, userId: ID!): Comment
   deleteComment(id: ID!): Boolean
+  //chat 
+   register(name: String!, password: String!): User!
+  login(name: String!, password: String!): String!
+  logout(userId: ID!): Boolean!
+  sendMessage(content: String!, authorId: ID!): Message!
+
+}
+type Subscription{
+    postMessage: Message!
+    addComment: Comment!
 }
 
 input CommentInput {

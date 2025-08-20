@@ -18,7 +18,7 @@ export const blogMutation = {
     return user;
   },
 
-  addComment: (_, { text, postId, userId }) => {
+  addComment: (_, { text, postId, userId },{pubsub}) => {
     const post = posts.find((p) => p.id === postId);
     const user = users.find((u) => u.id === userId);
     if (!post || !user) throw new Error("Post or User not found");
@@ -30,6 +30,9 @@ export const blogMutation = {
       userId,
     };
     comments.push(newComment);
+    pubsub.publish("Comment_Added",{
+      addComment : newComment
+    })
     return newComment;
   },
 

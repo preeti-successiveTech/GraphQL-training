@@ -1,0 +1,14 @@
+type User{
+  id: ID!
+  name: String!
+  password: String!
+  isonline: Boolean!
+}
+
+type Message {
+  id: ID!
+  content: String!
+  author: User!
+  createdAt: String!
+}
+

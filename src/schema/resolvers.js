@@ -11,6 +11,10 @@ export const resolvers = {
     ...blogModule.Mutation,
     ...messageModule.Mutation,
   },
+  Subscription : {
+    ...messageModule.Subscription,
+    ...blogModule.Subscription,
+  },
   UserResult: {
     __resolveType(obj) {
       console.log("calling resolver type", obj);
