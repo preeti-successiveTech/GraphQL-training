@@ -1,8 +1,8 @@
 type Query {
   messages: [Message!]!
   getUsers: [User!]!
-  getUserById(id: ID!): User
-  getPosts: [Post!]!
+  getUserById(id: ID!): UserResult!
+  getPosts(page: Int!, limit: Int!, sortOrder: sortOrder): [Post!]!
   getPostById(id: ID!): Post
   getPostsByUserId(userId: ID!): [Post!]!
   getComments: [Comment!]!
@@ -14,6 +14,9 @@ type Query {
 type Mutation {
   postMessage(content: String!, author: String!, title: String!): Message!
   createPost(title: String!, content: String!, authorId: ID!): Post!
+  updateUser(id: ID!, name: String!): User
+  addComment(text: String!, postId: ID!, userId: ID!): Comment
+  deleteComment(id: ID!): Boolean
 }
 
 input CommentInput {

@@ -21,3 +21,15 @@ type Comment {
   post: Post!
   user: User!
 }
+
+enum sortOrder {
+  ASC
+  DESC
+}
+
+type customError {
+  message: String!
+  code: String!
+}
+
+union UserResult = User | customError
