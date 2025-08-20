@@ -2,7 +2,6 @@ import { posts, users } from "./dataSource.js";
 
 export const blogQueryResolvers = {
   getUsers: () => {
-    console.log("111111111111");
     return users;
   },
 

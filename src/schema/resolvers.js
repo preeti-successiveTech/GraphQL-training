@@ -27,7 +27,6 @@ export const resolvers = {
 
   User: {
     posts: (parent) => {
-      console.log("222222222222");
       return posts.filter((post) => post.authorId === parent.id);
     },
     comments: (parent) => {
