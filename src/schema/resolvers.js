@@ -1,19 +1,24 @@
+import { User } from "../models/user.js";
 import { comments, posts, users } from "../modules/blog/dataSource.js";
 import { blogModule } from "../modules/blog/index.js";
+import { chatModule } from "../modules/chats/index.js";
 import { messageModule } from "../modules/message/index.js";
 
 export const resolvers = {
   Query: {
     ...blogModule.Query,
     ...messageModule.Query,
+    ...chatModule.Query,
   },
   Mutation: {
     ...blogModule.Mutation,
     ...messageModule.Mutation,
+    ...chatModule.Mutation,
   },
-  Subscription : {
+  Subscription: {
     ...messageModule.Subscription,
     ...blogModule.Subscription,
+    ...chatModule.Subscription,
   },
   UserResult: {
     __resolveType(obj) {
@@ -31,7 +36,6 @@ export const resolvers = {
 
   User: {
     posts: (parent) => {
-      console.log("222222222222");
       return posts.filter((post) => post.authorId === parent.id);
     },
     comments: (parent) => {
@@ -48,5 +52,10 @@ export const resolvers = {
   Comment: {
     user: (parent) => users.find((user) => user.id === parent.userId),
     post: (parent) => posts.find((post) => post.id === parent.postId),
+  },
+  MessageChat: {
+    author: async (parent) => {
+      return await User.findById(parent.author);
+    },
   },
 };

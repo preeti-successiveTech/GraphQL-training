@@ -1,6 +1,5 @@
 type Query {
   messages: [Message!]!
-  //blog
   getUsers: [User!]!
   getUserById(id: ID!): UserResult!
   getPosts(page: Int!, limit: Int!, sortOrder: sortOrder): [Post!]!
@@ -10,30 +9,38 @@ type Query {
   getCommentsByPostId(postId: ID!): [Comment!]!
   getUserByComment(comment: CommentInput!): User
   getAuthorOfPost(post: PostInput!): User
-  //Chat Application
-  users: [User!]!
-  messages(limit: Int): [Message!]!
+  usersChat: [UserChat!]!
+  messagesChat(limit: Int): [MessageChat!]!
 }
 
 type Mutation {
   postMessage(content: String!, author: String!, title: String!): Message!
-  //Blog
   createPost(title: String!, content: String!, authorId: ID!): Post!
   updateUser(id: ID!, name: String!): User
   addComment(text: String!, postId: ID!, userId: ID!): Comment
   deleteComment(id: ID!): Boolean
-  //chat 
-   register(name: String!, password: String!): User!
-  login(name: String!, password: String!): String!
+  register(name: String!, password: String!, email: String!): UserChat!
+  login(name: String!, password: String!): AuthPayload!
   logout(userId: ID!): Boolean!
-  sendMessage(content: String!, authorId: ID!): Message!
-
+  sendMessage(content: String!): MessageChat!
 }
-type Subscription{
-    postMessage: Message!
-    addComment: Comment!
+type Subscription {
+  postMessage: Message!
+  addComment: Comment!
+  UserJoined: UserJoinedPayload!
+  UserLogout: UserLogoutPayload!
+}
+type UserJoinedPayload {
+  userMessage: String!
+}
+type UserLogoutPayload {
+  userMessage: String!
 }
 
+type AuthPayload {
+  user: UserChat!
+  token: String!
+}
 input CommentInput {
   id: ID!
   text: String!

@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
   {
-    content: { 
-        type: String, 
-        required: true 
+    content: {
+      type: String,
+      required: true,
     },
-    authorId: {
+    author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    createdAt: { 
-        type: Date, 
-        default: Date.now 
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }

@@ -1,10 +1,13 @@
+import { Message } from "../../models/message.js";
+import { User } from "../../models/user.js";
+
 export const chatQueryResolver = {
-  users: async () => {
+  usersChat: async () => {
     return await User.find();
   },
-  messages: async (_, { limit }) => {
+  messagesChat: async (_, { limit }) => {
     const query = Message.find().sort({ createdAt: -1 });
     if (limit) query.limit(limit);
-    return await query.populate("authorId");
+    return await query.populate("author");
   },
-}
+};

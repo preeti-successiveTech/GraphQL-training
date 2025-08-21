@@ -17,15 +17,14 @@ import { typeDefs } from "../schema/typeDefs.js";
 import { resolvers } from "../schema/resolvers.js";
 import { SERVER_CONFIG } from "../config/serverConfig.js";
 import { connectDB } from "../config/db.js";
-
-
+import { verifyToken } from "../utils/auth.js";
 
 export async function createExpressServer() {
   const app = express();
   const httpServer = http.createServer(app);
 
   // Build executable schema
-   const schema = makeExecutableSchema({ typeDefs, resolvers });
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
 
   // Apollo Server setup
   const server = new ApolloServer({
@@ -43,14 +42,19 @@ export async function createExpressServer() {
     cors(),
     express.json(),
     expressMiddleware(server, {
-      context: async () => ({ pubsub }),
+      context: async ({ req }) => {
+        const token = req.headers.authorization || "";
+        const verifyUser = await verifyToken(token.replace("Bearer ", ""));
+
+        return { pubsub, verifyUser };
+      },
     })
   );
 
   // WebSocket server for subscriptions
   const wsServer = new WebSocketServer({
     server: httpServer,
-    path:  SERVER_CONFIG.GRAPHQL_PATH,
+    path: SERVER_CONFIG.GRAPHQL_PATH,
   });
 
   useServer(
@@ -65,4 +69,3 @@ export async function createExpressServer() {
 }
 
 export const createApolloServer = createExpressServer;
-

@@ -1,14 +1,14 @@
-type User{
+type UserChat {
   id: ID!
   name: String!
+  email: String!
   password: String!
-  isonline: Boolean!
+  isOnline: Boolean!
 }
 
-type Message {
+type MessageChat {
   id: ID!
   content: String!
-  author: User!
+  author: UserChat!
   createdAt: String!
 }
-
