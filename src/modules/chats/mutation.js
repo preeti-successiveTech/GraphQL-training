@@ -29,10 +29,9 @@ export const chatMutation = {
     return { user, token };
   },
 
-  logout: async (_, { userId }, { pubsub }) => {
-    const user = await User.findById(userId);
-    if (!user) throw new Error("User not found");
-
+  logout: async (_, {}, { verifyUser,pubsub }) => {
+    if (!verifyUser) throw new Error("Not authenticated");
+    const user = verifyUser;
     user.isOnline = false;
     await user.save();
     pubsub.publish("User_Logout", {
@@ -41,6 +40,19 @@ export const chatMutation = {
 
     return true;
   },
+  //   logout: async (_, { userId }, { pubsub }) => {
+  //   const user = await User.findById(userId);
+  //   if (!user) throw new Error("User not found");
+
+  //   user.isOnline = false;
+  //   await user.save();
+  //   pubsub.publish("User_Logout", {
+  //     UserLogout: { userMessage: `${user.name} logout` },
+  //   });
+
+  //   return true;
+  // },
+
 
   sendMessage: async (_, { content }, { verifyUser, pubsub }) => {
     if (!verifyUser) throw new Error("Not authenticated");

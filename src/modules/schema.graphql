@@ -21,7 +21,7 @@ type Mutation {
   deleteComment(id: ID!): Boolean
   register(name: String!, password: String!, email: String!): UserChat!
   login(name: String!, password: String!): AuthPayload!
-  logout(userId: ID!): Boolean!
+  logout: Boolean!
   sendMessage(content: String!): MessageChat!
 }
 type Subscription {
