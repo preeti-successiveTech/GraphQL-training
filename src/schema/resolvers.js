@@ -22,13 +22,10 @@ export const resolvers = {
   },
   UserResult: {
     __resolveType(obj) {
-      console.log("calling resolver type", obj);
       if (obj.code) {
-        console.log("calling custom error");
         return "customError";
       }
       if (obj.name) {
-        console.log("calling User");
         return "User";
       }
     },

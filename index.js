@@ -1,13 +1,14 @@
 //index.js
 
 
+import { SERVER_CONFIG } from "./src/config/serverConfig.js";
 import { createApolloServer } from "./src/server/express.js";
+const Port = SERVER_CONFIG.PORT;
+const httpServer = await createApolloServer(Port);
 
-const httpServer = await createApolloServer(4000);
-
-httpServer.listen(4000, () => {
-  console.log(`🚀 Query/Mutation endpoint: http://localhost:4000/graphql`);
-  console.log(`🚀 Subscription endpoint: ws://localhost:4000/graphql`);
+httpServer.listen(Port, () => {
+  console.log(`🚀 Query/Mutation endpoint: http://localhost:${Port}/graphql`);
+  console.log(`🚀 Subscription endpoint: ws://localhost:${Port}/graphql`);
 });
 
 // import { ApolloServer } from "@apollo/server";

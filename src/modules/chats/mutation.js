@@ -40,18 +40,6 @@ export const chatMutation = {
 
     return true;
   },
-  //   logout: async (_, { userId }, { pubsub }) => {
-  //   const user = await User.findById(userId);
-  //   if (!user) throw new Error("User not found");
-
-  //   user.isOnline = false;
-  //   await user.save();
-  //   pubsub.publish("User_Logout", {
-  //     UserLogout: { userMessage: `${user.name} logout` },
-  //   });
-
-  //   return true;
-  // },
 
 
   sendMessage: async (_, { content }, { verifyUser, pubsub }) => {
@@ -64,19 +52,4 @@ export const chatMutation = {
 
     return populatedMessage;
   },
-  // sendMessage: async (_, { content, author }, { verifyUser, pubsub }) => {
-  //   if (!verifyUser) throw new Error("Not authenticated");
-  //   if (author === verifyUser.id) {
-  //     const user = await User.findById(author);
-  //     if (!user) throw new Error("User not found");
-  //     const newMessage = new Message({ content, author });
-  //     await newMessage.save();
-
-  //     const populatedMessage = await newMessage.populate("author");
-  //     pubsub.publish("NEW_MESSAGE", { newMessage: populatedMessage });
-
-  //     return populatedMessage;
-  //   }
-  //   throw new Error("You are not authenticated, Please check your id");
-  // },
 };
