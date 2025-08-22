@@ -2,6 +2,7 @@ type UserChat {
   id: ID!
   name: String!
   email: String!
+  role: String!
   password: String!
   isOnline: Boolean!
 }

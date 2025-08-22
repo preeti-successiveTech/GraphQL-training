@@ -3,12 +3,12 @@ import { User } from "../../models/user.js";
 import { generateToken } from "../../utils/auth.js";
 
 export const chatMutation = {
-  register: async (_, { name, email, password }) => {
+  register: async (_, { name, email, role, password }) => {
     const existing = await User.findOne({ email });
     if (existing) {
       throw new Error("User already exists");
     }
-    const newUser = new User({ name, email, password, isOnline: false });
+    const newUser = new User({ name, email, role, password, isOnline: false });
     await newUser.save();
 
     return newUser;
@@ -52,4 +52,17 @@ export const chatMutation = {
 
     return populatedMessage;
   },
+
+  deleteUser: async(_, {userId}, {verifyUser})=>{
+     if (!verifyUser) throw new Error("Not authenticated");
+     if(verifyUser.role !== 'ADMIN')
+     {
+        throw new Error("Only admin have access for this");
+     }
+     const user = await User.findById(userId);
+      if (!user) throw new Error("User not found");
+     await User.findByIdAndDelete(userId);
+     return user;
+  }
+  
 };

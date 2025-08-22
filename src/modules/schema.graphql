@@ -11,6 +11,7 @@ type Query {
   getAuthorOfPost(post: PostInput!): User
   usersChat: [UserChat!]!
   messagesChat(limit: Int): [MessageChat!]!
+  allUsers: [UserChat]!
 }
 
 type Mutation {
@@ -19,10 +20,11 @@ type Mutation {
   updateUser(id: ID!, name: String!): User
   addComment(text: String!, postId: ID!, userId: ID!): Comment
   deleteComment(id: ID!): Boolean
-  register(name: String!, password: String!, email: String!): UserChat!
+  register(name: String!, password: String!,role:String!, email: String!): UserChat!
   login(name: String!, password: String!): AuthPayload!
   logout: Boolean!
   sendMessage(content: String!): MessageChat!
+  deleteUser(userId: ID!): UserChat!
 }
 type Subscription {
   postMessage: Message!

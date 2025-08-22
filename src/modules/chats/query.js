@@ -10,4 +10,13 @@ export const chatQueryResolver = {
     if (limit) query.limit(limit);
     return await query.populate("author");
   },
+  allUsers: async(_,{},{verifyUser})=>{
+     if (!verifyUser) throw new Error("Not authenticated");
+     if(verifyUser.role !== 'ADMIN')
+     {
+      throw new Error("You don't have access");
+     }
+     return await User.find();
+     
+  }
 };
