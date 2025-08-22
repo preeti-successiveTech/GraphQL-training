@@ -1,0 +1,14 @@
+type UserChat {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  isOnline: Boolean!
+}
+
+type MessageChat {
+  id: ID!
+  content: String!
+  author: UserChat!
+  createdAt: String!
+}

@@ -1,4 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
 export const SERVER_CONFIG = {
   PORT: process.env.PORT || 4000,
   GRAPHQL_PATH: "/graphql",
+  Mongo_URI: process.env.Mongo_URI,
+  key: process.env.Secret_key
 };

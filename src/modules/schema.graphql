@@ -9,6 +9,8 @@ type Query {
   getCommentsByPostId(postId: ID!): [Comment!]!
   getUserByComment(comment: CommentInput!): User
   getAuthorOfPost(post: PostInput!): User
+  usersChat: [UserChat!]!
+  messagesChat(limit: Int): [MessageChat!]!
 }
 
 type Mutation {
@@ -17,8 +19,28 @@ type Mutation {
   updateUser(id: ID!, name: String!): User
   addComment(text: String!, postId: ID!, userId: ID!): Comment
   deleteComment(id: ID!): Boolean
+  register(name: String!, password: String!, email: String!): UserChat!
+  login(name: String!, password: String!): AuthPayload!
+  logout: Boolean!
+  sendMessage(content: String!): MessageChat!
+}
+type Subscription {
+  postMessage: Message!
+  addComment: Comment!
+  UserJoined: UserJoinedPayload!
+  UserLogout: UserLogoutPayload!
+}
+type UserJoinedPayload {
+  userMessage: String!
+}
+type UserLogoutPayload {
+  userMessage: String!
 }
 
+type AuthPayload {
+  user: UserChat!
+  token: String!
+}
 input CommentInput {
   id: ID!
   text: String!
